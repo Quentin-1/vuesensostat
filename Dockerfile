@@ -19,5 +19,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 80
-CMD setcap cap_net_bind_service=ep $(which rootlesskit)
 CMD [ "http-server", "dist", "-p80"]
