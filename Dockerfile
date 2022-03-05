@@ -1,11 +1,5 @@
 FROM node:lts-alpine
 
-# Create a group and user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-# Tell docker that all future commands should run as the appuser user
-USER appuser
-
 # installe un simple serveur http pour servir un contenu statique
 RUN npm install -g http-server
 
@@ -23,6 +17,12 @@ COPY . .
 
 # construit l'app pour la production en la minifiant
 RUN npm run build
+
+# Create a group and user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Tell docker that all future commands should run as the appuser user
+USER appuser
 
 EXPOSE 80
 CMD [ "http-server", "dist", "-p80"]
