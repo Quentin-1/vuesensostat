@@ -1,22 +1,14 @@
-FROM node:lts-alpine
-
-# installe un simple serveur http pour servir un contenu statique
-RUN npm install -g http-server
-
-# définit le dossier 'app' comme dossier de travail
+# develop stage
+FROM node:11.1-alpine as develop-stage
 WORKDIR /app
-
-# copie 'package.json' et 'package-lock.json' (si disponible)
 COPY package*.json ./
-
-# installe les dépendances du projet
-RUN npm install
-
-# copie les fichiers et dossiers du projet dans le dossier de travail (par exemple : le dossier 'app')
+RUN yarn install
 COPY . .
-
-# construit l'app pour la production en la minifiant
-RUN npm run build
-
+# build stage
+FROM develop-stage as build-stage
+RUN yarn build
+# production stage
+FROM nginx:1.15.7-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
-CMD [ "http-server", "dist", "-p80"]
+CMD ["nginx", "-g", "daemon off;"]
