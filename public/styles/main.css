@@ -1,0 +1,72 @@
+body {
+    background-color: var(--pale-yellow);
+    margin: 0;
+}
+
+/* Définition des constantes CSS */
+:root {
+    --pale-yellow: #FFFCF2;
+    --orange: #FF9D0A;
+    --purple: #B007FF;
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 90vh;
+    padding: 1%;
+}
+
+#microphoneContainer {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+#iconText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+}
+
+#iconText > .itemCentered {
+    margin-left: 1%;
+    position: relative;
+}
+
+#title {
+    color: var(--black);
+    font-size: 300%;
+    text-align: center;
+    align-self: center;
+    padding: 1%;
+}
+
+#subtitle {
+    color: var(--black);
+    font-size: 150%;
+    text-align: center;
+    align-self: center;
+}
+
+.itemCentered {
+    align-self: center;
+}
+
+/* Partie Baptiste */
+.title {
+    font-size: 30px;
+}
+  
+.areaAnswer {
+    border: 1px solid var(--black);
+    border-radius: 20px;
+    padding: 20px;
+}
