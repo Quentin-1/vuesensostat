@@ -1,28 +1,23 @@
+# Choose the Image which has Node installed already
 FROM node:lts-alpine
 
-# installe un simple serveur http pour servir un contenu statique
+# install simple http server for serving static content
 RUN npm install -g http-server
 
-# définit le dossier 'app' comme dossier de travail
+# make the 'app' folder the current working directory
 WORKDIR /app
 
-# copie 'package.json' et 'package-lock.json' (si disponible)
+# copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
-# installe les dépendances du projet
+# install project dependencies
 RUN npm install
 
-# copie les fichiers et dossiers du projet dans le dossier de travail (par exemple : le dossier 'app')
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-# construit l'app pour la production en la minifiant
+# build app for production with minification
 RUN npm run build
 
-# Create a group and user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-# Tell docker that all future commands should run as the appuser user
-USER appuser
-
-EXPOSE 80
-CMD [ "http-server", "dist", "-p80"]
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
