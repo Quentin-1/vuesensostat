@@ -1,8 +1,4 @@
-FROM Centos:7
-# Add a new user "john" with user id 8877
-RUN useradd -u 8877 quentin
-# Change to non-root privilege
-USER quentin
+FROM node:lts-alpine
 
 # installe un simple serveur http pour servir un contenu statique
 RUN npm install -g http-server
@@ -23,4 +19,5 @@ COPY . .
 RUN npm run build
 
 EXPOSE 80
+CMD setcap cap_net_bind_service=ep $(which rootlesskit)
 CMD [ "http-server", "dist", "-p80"]
